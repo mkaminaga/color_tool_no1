@@ -1,0 +1,62 @@
+﻿# Build files
+*.exe
+*.lib
+*.ilk
+*.map
+*.o
+*.obj
+*.pdb
+*.d
+*.exe
+*.out
+*.stackdump
+*.ico
+*.sdf
+*.res
+*.sln
+*.vs
+*.bmp
+*.opendb
+*.bak
+build/
+
+# unique original output file
+pass_info.html
+pass_info.txt
+
+# release files
+release/
+
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+*.sap
+*.csv
+
+# Sound files
+*.wav
+*.mp3
+*.midi
+*.mid
+
+# Image files
+*.png
+*.jpg
+*.gif
+*.bmp
+
+# data files
+*.dat
+*.pdf
+
+# Tempolary files
+*.temp
+*.tmp
+~*
+*~
+'*
+*'
+
+# edge pallets
+*.plt
