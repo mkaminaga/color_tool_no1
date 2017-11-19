@@ -6,7 +6,7 @@
 # This program is provided with MIT license. See "LICENSE.md".
 
 # Required: The latest version.
-VERSION='v1.0.0_alpha'
+VERSION='v1.0.0_alpha2'
 
 # Output directory is created
 OUTDIR="release"

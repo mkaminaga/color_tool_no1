@@ -20,7 +20,7 @@
   // Fixed parameters for normal distribution used in this program.
 #define NORMAL_DIST_MUE     (0.0)
 #define NORMAL_DIST_SIGMA   (1.0)
-#define NORMAL_DIST_RANGE   (11.5)
+#define NORMAL_DIST_RANGE   (2.80)
 
 Canvas::Canvas() = default;
 
