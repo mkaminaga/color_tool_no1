@@ -11,7 +11,7 @@
 
 操作方法
 ----
-<img src="./doc/screenshot.png" title="screen_shot"><br>
+<img src="doc/screenshot.png" title="screen_shot"><br>
 
 概要
 ------
