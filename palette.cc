@@ -182,6 +182,7 @@ bool Palette::LoadColor(const wchar_t* file_name) {
 #endif
     ++color_id;
   }
+  fclose(fp);
   return true;
 }
 HBRUSH Palette::GetBrush(int color_id) const {

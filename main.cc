@@ -17,6 +17,9 @@
 
 #include "./resource.h"
 
+#define RANGE_IMAGE_FILE    L"./data/normal_distribution.png"
+#define DEFAULT_COLOR_FILE  L"./colors/default.txt"
+
 namespace {
   // File scope variables.
 std::unique_ptr<Palette> palette;
@@ -27,12 +30,12 @@ BOOL OnCreate(HWND hwnd, HWND hwnd_forcus, LPARAM lp) {
   // The palette class is created.
   const Vector2n pallete_grids(16, 16);
   palette.reset(new Palette());
-  palette->Create(hwnd, pallete_grids, false, nullptr);
+  palette->Create(hwnd, pallete_grids, TRUE, DEFAULT_COLOR_FILE);
 
   // The range class is created.
   const int range_grids = 20;
   range.reset(new Range());
-  range->Create(hwnd, range_grids, L"./data/normal_distribution.png");
+  range->Create(hwnd, range_grids, RANGE_IMAGE_FILE);
 
   // The canvas class is created.
   const Vector2n pixel(64, 64);
