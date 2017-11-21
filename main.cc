@@ -8,6 +8,7 @@
 #include <wchar.h>
 #include <windows.h>
 #include <windowsx.h>
+#include <stdint.h>
 #include <memory>
 
 #include "./canvas.h"
@@ -94,29 +95,77 @@ void OnCommand(HWND hwnd, int id, HWND hwnd_ctrl, UINT code_notify) {
       {
         // The file name is acquired.
         wchar_t file_name[MAX_PATH] = {0};
-        if (!GetExportFileName(hwnd, file_name)) return;
+        FILTERINDEX filter_index;
+        if (!GetExportFileName(hwnd, file_name, &filter_index)) return;
 
-        int file_name_length = wcslen(file_name);
-        if (wcscmp(&file_name[file_name_length - 3], L"bmp") == 0) {
-          // RGB buffer is created.
-          Vector2n pixel = canvas->GetPixels();
-          int array_size = pixel.x * pixel.y;
-          std::vector<RGBVecotr> array(array_size);
-          for (int pixel_id = 0; pixel_id < array_size; ++pixel_id) {
-            array[pixel_id] = palette->GetColor(canvas->GetColorId(pixel_id));
-          }
+        switch (filter_index) {
+          case FILTERINDEX_WIN_8BIT_BITMAP:
+            {
+              // Palette buffer is created.
+              Vector2n pallet_grids = palette->GetGrid();
+              const int color_num = pallet_grids.x * pallet_grids.y;
+              std::vector<RGBVecotr> colors(color_num);
+              for (int color_id = 0; color_id < color_num; ++color_id) {
+                colors[color_id] = palette->GetColor(color_id);
+              }
 
-          // The file is created.
-          bool result = CreateBitmapFile(
-              file_name,
-              pixel.x,
-              pixel.y,
-              array.data(),
-              array_size);
-          if (!result) {
-            MessageBox(hwnd, L"Failed to create bitmap file", L"Error", MB_OK);
-          }
-          return;
+              // Vector buffer is created.
+              Vector2n pixel = canvas->GetPixels();
+              int index_num = pixel.x * pixel.y;
+              std::vector<uint8_t> indeces(index_num);
+              for (int pixel_id = 0; pixel_id < index_num; ++pixel_id) {
+                indeces[pixel_id] =
+                  static_cast<uint8_t>(canvas->GetColorId(pixel_id));
+              }
+
+              // The file is created.
+              bool result = CreateBitmapWin8(
+                  file_name,
+                  pixel.x,
+                  pixel.y,
+                  colors.data(),
+                  color_num,
+                  indeces.data(),
+                  index_num);
+              if (!result) {
+                MessageBox(
+                    hwnd,
+                    L"Failed to create bitmap file",
+                    L"Error",
+                    MB_OK);
+              }
+            }
+            break;
+          case FILTERINDEX_WIN_24BIT_BITMAP:
+            {
+              // RGB buffer is created.
+              Vector2n pixel = canvas->GetPixels();
+              int array_size = pixel.x * pixel.y;
+              std::vector<RGBVecotr> array(array_size);
+              for (int pixel_id = 0; pixel_id < array_size; ++pixel_id) {
+                array[pixel_id] =
+                  palette->GetColor(canvas->GetColorId(pixel_id));
+              }
+
+              // The file is created.
+              bool result = CreateBitmapWin24(
+                  file_name,
+                  pixel.x,
+                  pixel.y,
+                  array.data(),
+                  array_size);
+              if (!result) {
+                MessageBox(
+                    hwnd,
+                    L"Failed to create bitmap file",
+                    L"Error",
+                    MB_OK);
+              }
+            }
+            break;
+          default:
+            // No implementation.
+            break;
         }
       }
       break;

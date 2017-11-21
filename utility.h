@@ -9,6 +9,7 @@
 
 #include <wchar.h>
 #include <windows.h>
+#include <stdint.h>
 
   // Message cracker is used for dialog messages with this macro function.
 #define HANDLE_DLG_MSG(hwnd, msg, fn)\
@@ -33,14 +34,29 @@ struct Vector2 {
 typedef Vector2<int> Vector2n;
 typedef Vector2<double> Vector2d;
 
-bool GetPaletteFileName(HWND hwnd, wchar_t* file_name);
-bool GetExportFileName(HWND hwnd, wchar_t* file_name);
+enum FILTERINDEX {
+  FILTERINDEX_COLOR_TEXT,
+  FILTERINDEX_WIN_8BIT_BITMAP,
+  FILTERINDEX_WIN_24BIT_BITMAP,
+};
 
-bool CreateBitmapFile(
+bool GetPaletteFileName(HWND hwnd, wchar_t* file_name);
+bool GetExportFileName(HWND hwnd, wchar_t* file_name, FILTERINDEX* index);
+
+bool CreateBitmapWin24(
     const wchar_t* file_name,
     int width,
     int height,
     const RGBVecotr* array,
     int array_size);
+
+bool CreateBitmapWin8(
+    const wchar_t* file_name,
+    int width,
+    int height,
+    const RGBVecotr* colors,
+    int color_num,
+    const uint8_t* indeces,
+    int index_num);
 
 #endif  // UTILITY_H_

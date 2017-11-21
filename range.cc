@@ -131,12 +131,18 @@ bool Range::SelectGrid(HWND hwnd, int mouse_x, int mouse_y) {
 void Range::SetColor(HWND hwnd, const Palette& palette) {
   // Store color id.
   color_id_[selected_grid_id_] = palette.GetSelectedColorId();
+
+  // Warnings are prevented for non-used parameters.
+  UNREFERENCED_PARAMETER(hwnd);
 }
 void Range::SetAllColor(HWND hwnd, const Palette& palette) {
   for (int grid_id = 0; grid_id < grid_; ++grid_id) {
     // Store color id.
     color_id_[grid_id] = palette.GetSelectedColorId();
   }
+
+  // Warnings are prevented for non-used parameters.
+  UNREFERENCED_PARAMETER(hwnd);
 }
 int Range::GetColorId(int grid_id) const {
   return color_id_[grid_id];
