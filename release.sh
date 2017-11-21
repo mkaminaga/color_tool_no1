@@ -6,7 +6,7 @@
 # This program is provided with MIT license. See "LICENSE.md".
 
 # Required: The latest version.
-VERSION='v1.0.0_alpha'
+VERSION='v1.0.0_alpha4'
 
 # Output directory is created
 OUTDIR="release"
@@ -27,7 +27,7 @@ cp -r data/*.png ${TARGET}/data/
 mkdir -p ${TARGET}/doc/
 cp -r doc/*.png ${TARGET}/doc/
 
-cp -r sample/ ${TARGET}/
+cp -r colors/ ${TARGET}/
 
 cp -r *.md ${TARGET}/
 cp *.exe ${TARGET}/
