@@ -202,7 +202,7 @@ bool CreateBitmapWin8(
   memcpy_s(&bitmap_header[28], 2, &bit_number, 2);
 
   // The number of pixels of the image.
-  uint32_t image_byte_num = kPaletteColorNum * 4 + width * height * 1;
+  uint32_t image_byte_num = width * height * 1;
   memcpy_s(&bitmap_header[34], 4, &image_byte_num, 4);
 
   // The used color num in palette.
